@@ -1,0 +1,15 @@
+Lukasz Enriquez,332345823,Savings,55000,6493
+Darryl Perez,429232674,Savings,33987,3363
+Brenden Pennington,325128620,Checking,99,2651
+Seun Kuye,015073744,Checking,10000000,5500
+Ade Adebomi,353287849,Savings,0,6258
+Hamza Hutchings,453207793,Checking,56789,1539
+Emanuel Villegas,142603709,Savings,84,6173
+Steve Jobs,035420208,Checking,223334444,1599
+Izehi Kuye,248400764,Savings,99000000,8107
+Ore Kuye,765020814,Savings,700,6996
+Perry Hanson,543105054,Checking,1,4808
+Sophie Grace Lloyd,542168683,Savings,4400000000,7659
+Lucas Randranrivielo,682104459,Checking,0,2945
+Gbenga Kuye,553405546,Savings,10000000000,9678
+Ademide Osunsina,046361327,Checking,55000000,5626
