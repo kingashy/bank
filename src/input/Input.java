@@ -1,15 +1,10 @@
-package utilities;
+package input;
 
 import java.util.Scanner;
 
 public class Input 
 {
 	public static final Scanner sc = new Scanner(System.in);
-	
-	public Input()
-	{
-		
-	}
 	
 	/*Note: Every input is a string converted to the specified type to avoid \n (new line) issues*/
 	
