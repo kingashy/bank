@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5bb7a9e2-eb90-44be-95fa-4e0b7051771b" name="Default Changelist" comment="" />
+    <list default="true" id="5bb7a9e2-eb90-44be-95fa-4e0b7051771b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts.txt" beforeDir="false" afterPath="$PROJECT_DIR$/accounts.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bigbank/account/AccountLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/account/AccountLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bigbank/account/AccountManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/account/AccountManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bigbank/account/Pin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/account/Pin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bigbank/bank/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/bank/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bigbank/input/Input.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/input/Input.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bigbank/profile/Profile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/profile/Profile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bigbank/profile/ProfileManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/profile/ProfileManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/profiles.txt" beforeDir="false" afterPath="$PROJECT_DIR$/profiles.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/account/AccountLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/account/AccountLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/account/AccountManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/account/AccountManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/account/Pin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/account/Pin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bank/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bank/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/input/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/input/Input.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/profile/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/profile/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/profile/ProfileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/profile/ProfileManager.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +41,16 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -55,7 +83,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1569209591318</updated>
-      <workItem from="1569209595287" duration="838000" />
+      <workItem from="1569209595287" duration="2505000" />
+      <workItem from="1569265207109" duration="4813000" />
     </task>
     <servers />
   </component>
@@ -67,7 +96,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

@@ -35,6 +35,11 @@ public class Profile
         else return true;
     }
 
+    public void addAccountNumber(long accountNumber)
+    {
+        accountNumberList.add(accountNumber);
+    }
+
     @Override
     public String toString()
     {

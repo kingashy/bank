@@ -25,7 +25,7 @@ public class ProfileManager
 
         person = new Person(splitLine[0].trim(), Integer.parseInt(splitLine[1].trim()));
 
-        for (int i = 2; i < splitLine.length - 2; i++)
+        for (int i = 2; i <= (splitLine.length - 1) - 1; i++)
         {
             accountNumberList.add(Long.parseLong(splitLine[i].trim()));
         }

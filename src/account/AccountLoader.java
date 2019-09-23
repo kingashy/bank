@@ -31,7 +31,7 @@ public class AccountLoader
                 tempParse = accountFileManager.parseLine(buffR);
                 if (tempParse == null) break;
                 tempAccount = accountManager.createAccountFromFile(tempParse);
-                tempAccount.showInfo();
+                //tempAccount.showInfo();
                 accountListManager.addAccount(tempAccount);
             }  while (tempParse != null);
 

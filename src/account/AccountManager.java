@@ -15,13 +15,13 @@ public class AccountManager
 	}
 
 	//create a new Checking account
-	public Account createCheckingAccount(double initialDeposit, Pin pin, AccountNumber accountNumber, DebitCard debitCard)
+	public Account createChecking(double initialDeposit, Pin pin, AccountNumber accountNumber, DebitCard debitCard)
 	{
 		return new Checking(initialDeposit, pin, accountNumber, debitCard);
 	}
 
 	//create a new Savings account
-	public Account createSavingsAccount(double initialDeposit, Pin pin, AccountNumber accountNumber, SecurityBox securityBox)
+	public Account createSavings(double initialDeposit, Pin pin, AccountNumber accountNumber, SecurityBox securityBox)
 	{
 		return new Savings(initialDeposit, pin, accountNumber, securityBox);
 	}
@@ -39,11 +39,11 @@ public class AccountManager
 		{
 			case "Savings":
 				securityBox = new SecurityBox(Integer.parseInt(splitLine[3]));
-				tempAccount = createSavingsAccount(Double.parseDouble(splitLine[0]), pin, accountNumber, securityBox);
+				tempAccount = createSavings(Double.parseDouble(splitLine[0]), pin, accountNumber, securityBox);
 				break;
 			case "Checking":
 				debitCard = new DebitCard(Long.parseLong(splitLine[3]));
-				tempAccount = createCheckingAccount(Double.parseDouble(splitLine[0]), pin, accountNumber, debitCard);
+				tempAccount = createChecking(Double.parseDouble(splitLine[0]), pin, accountNumber, debitCard);
 				break;
 			default:
 				System.out.println("Invalid Account Type");
