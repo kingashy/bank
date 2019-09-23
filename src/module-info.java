@@ -1,2 +1,2 @@
-module bankapp {
+module bigbank {
 }
