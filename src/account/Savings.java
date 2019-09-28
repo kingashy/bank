@@ -8,11 +8,12 @@ public class Savings extends Account
 	{
 		super(initialDeposit, pin, accountNumber);
 		this.securityBox = securityBox;
+		accountType = "Savings";
 	}
 	
 	//override the showInfo() method from the super class
 	@Override
-	protected void showInfo() 
+	public void showInfo()
 	{
 		super.showInfo();
 		securityBox.showInfo();
@@ -22,7 +23,7 @@ public class Savings extends Account
 	public String toString() 
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(",").append(securityBox.getBoxNumber()).append(",").append("Savings");
+		sb.append(",").append(securityBox.getBoxNumber()).append(",").append(accountType);
 		return super.toString() + sb.toString();
 	}
 }

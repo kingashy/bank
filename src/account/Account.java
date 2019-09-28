@@ -2,6 +2,7 @@ package account;
 
 public abstract class Account
 {
+	protected String accountType = "";
 	protected AccountNumber accountNumber;
 	protected Pin pin;
 
@@ -69,7 +70,7 @@ public abstract class Account
 	}
 	
 	//show everything about the account
-	protected void showInfo()
+	public void showInfo()
 	{
 		System.out.println();
 		System.out.println("Balance: $" + balance);

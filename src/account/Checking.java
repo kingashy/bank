@@ -8,10 +8,11 @@ public class Checking extends Account
 	{
 		super(initialDeposit, pin, accountNumber);
 		this.debitCard = debitCard;
+		accountType = "Checking";
 	}
 
 	@Override
-	protected void showInfo() 
+	public void showInfo()
 	{
 		super.showInfo();
 		debitCard.showInfo();
@@ -21,7 +22,7 @@ public class Checking extends Account
 	public String toString() 
 	{
 		StringBuilder sb = new StringBuilder();	
-		sb.append(",").append(debitCard.getCardNumber()).append(",").append("Checking");
+		sb.append(",").append(debitCard.getCardNumber()).append(",").append(accountType);
 		return super.toString() + sb.toString();
 	}
 }

@@ -33,7 +33,7 @@ public class ProfileLoader
                 tempParse = profileFileManager.parseLine(buffR);
                 if (tempParse == null) break;
                 tempProfile = profileManager.createProfileFromFile(tempParse);
-                tempProfile.showInfo();
+                //tempProfile.showInfo();
                 profileListManager.addProfile(tempProfile);
             }  while (tempParse != null);
 

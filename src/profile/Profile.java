@@ -40,6 +40,19 @@ public class Profile
         accountNumberList.add(accountNumber);
     }
 
+    public void showAccounts()
+    {
+        Long tempAccountNumber;
+        int count = 1;
+
+        System.out.println("Accounts: \n");
+        for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext();)
+        {
+            tempAccountNumber = i.next();
+            System.out.println(count + ": " + tempAccountNumber);
+        }
+    }
+
     @Override
     public String toString()
     {
