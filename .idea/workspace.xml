@@ -2,28 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5bb7a9e2-eb90-44be-95fa-4e0b7051771b" name="Default Changelist" comment="Added account creation (for when a profile doesn't have any accounts linked to it)">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts.txt" beforeDir="false" afterPath="$PROJECT_DIR$/accounts.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bigbank/account/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/account/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bigbank/account/AccountSecurity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bigbank/account/Checking.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/account/Checking.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bigbank/account/Pin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/account/Pin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bigbank/account/Savings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/account/Savings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bigbank/account/AccountFileManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/account/AccountFileManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/bigbank/bank/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/bank/Application.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/bigbank/profile/Profile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/profile/Profile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bigbank/profile/ProfileListManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/profile/ProfileListManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bigbank/profile/ProfileLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bigbank/profile/ProfileLoader.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/profiles.txt" beforeDir="false" afterPath="$PROJECT_DIR$/profiles.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/account/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/account/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/account/AccountSecurity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/account/Checking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/account/Checking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/account/Pin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/account/Pin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/account/Savings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/account/Savings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/account/AccountFileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/account/AccountFileManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bank/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bank/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/profile/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/profile/Profile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/profile/ProfileListManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/profile/ProfileListManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/profile/ProfileLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/profile/ProfileLoader.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +85,7 @@
       <workItem from="1569209595287" duration="2505000" />
       <workItem from="1569265207109" duration="5132000" />
       <workItem from="1569472456016" duration="649000" />
-      <workItem from="1569608224338" duration="9597000" />
+      <workItem from="1569608224338" duration="14791000" />
     </task>
     <servers />
   </component>

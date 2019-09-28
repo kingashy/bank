@@ -26,7 +26,7 @@ public class AccountFileManager
 	}
 
 	//add an account to the accounts.txt file
-	public void addAccount(Account account)
+	public void add(Account account)
 	{
 		try 
 		{
@@ -45,7 +45,7 @@ public class AccountFileManager
 	}
 	
 	//remove an account to the accounts.txt file
-	public void removeAccount(Account account)
+	public void remove(Account account)
 	{
 		fileManager.removeLineFromFile(fileName, account.toString());
 	}

@@ -45,11 +45,12 @@ public class Profile
         Long tempAccountNumber;
         int count = 1;
 
-        System.out.println("Accounts: \n");
+        System.out.println("\nAccounts: ");
         for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext();)
         {
             tempAccountNumber = i.next();
             System.out.println(count + ": " + tempAccountNumber);
+            count++;
         }
     }
 
