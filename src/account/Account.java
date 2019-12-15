@@ -1,6 +1,6 @@
 package account;
 
-public abstract class Account {
+public abstract class Account implements AccountTransactions {
     protected String accountType = "";
     protected AccountNumber accountNumber;
     protected Pin pin;
