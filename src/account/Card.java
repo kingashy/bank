@@ -1,16 +1,13 @@
 package account;
 
-public class Card
-{
+public class Card {
     protected long cardNumber;
 
-    public long getCardNumber()
-    {
+    public long getCardNumber() {
         return cardNumber;
     }
 
-    public void showInfo()
-    {
+    public void showInfo() {
         System.out.println("Card: " + cardNumber);
     }
 }

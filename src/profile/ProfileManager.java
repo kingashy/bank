@@ -2,22 +2,19 @@ package profile;
 
 import account.Pin;
 import person.Person;
+
 import java.util.LinkedList;
 
-public class ProfileManager
-{
-    public Profile createProfile(Person person, LinkedList<Long> accountNumberList, Pin pin)
-    {
+public class ProfileManager {
+    public Profile createProfile(Person person, LinkedList<Long> accountNumberList, Pin pin) {
         return new Profile(person, accountNumberList, pin);
     }
 
-    public Person createPerson(String name, int SSN)
-    {
+    public Person createPerson(String name, int SSN) {
         return new Person(name, SSN);
     }
 
-    public Profile createProfileFromFile(String[] splitLine)
-    {
+    public Profile createProfileFromFile(String[] splitLine) {
         Profile profile;
         Person person;
         Pin pin;
@@ -25,8 +22,7 @@ public class ProfileManager
 
         person = new Person(splitLine[0].trim(), Integer.parseInt(splitLine[1].trim()));
 
-        for (int i = 2; i <= (splitLine.length - 1) - 1; i++)
-        {
+        for (int i = 2; i <= (splitLine.length - 1) - 1; i++) {
             accountNumberList.add(Long.parseLong(splitLine[i].trim()));
         }
 
