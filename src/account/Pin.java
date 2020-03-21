@@ -3,13 +3,13 @@ package account;
 public class Pin {
     private int pin;
 
-    public Pin(int newPin) {
-        updatePin(newPin);
+    public Pin(int pin) {
+        if (isValidPinWidth(pin)) this.pin = pin;
     }
 
     //check if the pin entered is 4 digits
-    public boolean isValidPinWidth(int accountPin) {
-        if ((accountPin > 9999) || (accountPin < 0)) {
+    public boolean isValidPinWidth(int pin) {
+        if ((pin > 9999) || (pin < 1000)) {
             System.out.println("Failure: Invalid pin.");
             return false;
         } else return true;
@@ -23,7 +23,7 @@ public class Pin {
     }
 
     //check if the pin attempted is valid
-    public boolean isValidPin(int pinAttempt) {
+    public boolean verifyPin(int pinAttempt) {
         if (pinAttempt == pin) {
             return true;
         } else {

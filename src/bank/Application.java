@@ -1,13 +1,12 @@
 package bank;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import file.FileManager;
 import input.Input;
 import account.*;
 import profile.*;
-import person.*;
 
 public class Application {
     public static void main(String[] args) {
@@ -16,29 +15,26 @@ public class Application {
         final String bankName = "Big Bank";
         final int quitVal = 0;
 
-        LinkedList<Profile> profileList = new LinkedList<Profile>();
-        LinkedList<Account> accountList = new LinkedList<Account>();
+        HashMap<Integer, Profile> profileList = new HashMap<>();
+        HashMap<Long, Account> accountList = new HashMap<>();
 
         Input input = new Input(new Scanner(System.in));
-        FileManager fileManager = new FileManager();
-        AccountManager accountManager = new AccountManager();
         AccountListManager accountListManager = new AccountListManager(accountList);
-        AccountFileManager accountFileManager = new AccountFileManager(fileManager, accountsFileName);
-        ProfileManager profileManager = new ProfileManager();
+        AccountFileManager accountFileManager = new AccountFileManager(accountListManager, accountsFileName);
         ProfileListManager profileListManager = new ProfileListManager(profileList);
-        ProfileFileManager profileFileManager = new ProfileFileManager(fileManager, profilesFileName);
-
-        new AccountLoader(accountManager, accountListManager, accountFileManager);
-        new ProfileLoader(profileManager, profileListManager, profileFileManager);
+        ProfileFileManager profileFileManager = new ProfileFileManager(profileListManager, profilesFileName);
 
         Account account = null;
         String generalInput = "";
         boolean printMenu = true;
 
         System.out.println("\nWelcome to " + bankName + "!\n");
+
         System.out.print("Enter your name: ");
         String name = input.getString().trim();
-        Profile profile = profileListManager.findProfile(name);
+        System.out.print("Enter your Social Security Number (SSN): ");
+        int ssn = input.getInt();
+        Profile profile = profileListManager.findProfile(ssn, name);
 
         applicationLoop:
         do {
@@ -56,19 +52,12 @@ public class Application {
                         System.out.println("\nGoodbye!");
                         break applicationLoop;
                     case 1: //Create Bank Profile
-                        System.out.print("\nSocial Security Number: ");
-                        int tempSSN = input.getInt();
-
-                        System.out.print("Pin: ");
-                        Pin pin = new Pin(input.getInt());
-                        if (pin == null) continue;
-
-                        profile = profileManager.createProfile(new Person(name, tempSSN), new LinkedList<Long>(), pin);
-                        profileListManager.addProfile(profile);
+                        profile = new Profile(name, ssn, new LinkedList<>());
+                        profileListManager.addProfile(ssn, profile);
                         profileFileManager.addProfile(profile);
 
-                        System.out.println("\nProfile created!");
-                        System.out.println("This application will now restart. You will be prompted to re-enter your pin.");
+                        System.out.println("\nProfile created! Your name and ssn were used.");
+                        System.out.println("This application will now restart.");
                         continue applicationLoop;
                     default: //Invalid Option
                         System.out.println("Invalid Option. Try again.");
@@ -76,30 +65,15 @@ public class Application {
                 }
             }
 
-            System.out.println("\nYou will have 3 attempts to enter your pin.");
-
-            pinAttemptLoop:
-            do {
-                System.out.print("Pin: ");
-
-                if (profile.isValidPin(input.getInt())) break pinAttemptLoop;
-                else pinAttempts++;
-
-                if (pinAttempts == 3) {
-                    System.out.println("\nYou ran out of attempts. Please try again later. Goodbye!");
-                    break applicationLoop;
-                }
-            } while (pinAttempts <= 2);
-
             profileActionsLoop:
             do {
                 if (printMenu) {
                     System.out.println("\nProfile Actions Menu");
                     System.out.println("---------");
-                    System.out.println("1. Enter a New Pin");
+                    System.out.println("0. Quit");
+                    System.out.println("1. Remove profile");
                     System.out.println("2. Add an account");
-                    System.out.println("3. Delete an account");
-                    System.out.println("4. Manage an account");
+                    System.out.println("3. Manage an account");
                     printMenu = false;
                 }
 
@@ -108,44 +82,43 @@ public class Application {
                 generalInput = input.getString();
 
                 switch (Integer.parseInt(generalInput)) {
-                    case 1: //Enter a New Pin
-                        System.out.print("\nNew Pin: ");
-                        int updatedPin = input.getInt();
+                    case quitVal: //Quit
+                        System.out.println("\nGoodbye!");
+                        break applicationLoop;
+                    case 1: //Remove a profile
+                        profileFileManager.removeProfile(profile);
+                        profileListManager.removeProfile(ssn);
+                        System.out.println(profile.toString());
 
-                        if (profile.isValidPinWidth(updatedPin)) {
-                            profileFileManager.removeProfile(profile);
-                            profile.updatePin(updatedPin);
-                            profileFileManager.addProfile(profile);
-
-                            if (profile.hasAccounts()) {
-                                profile.updateAccountPins(updatedPin, accountListManager, accountFileManager);
-                            }
-                        }
-
-                        break;
+                        System.out.println("Profile Removed. Goodbye!");
+                        break applicationLoop;
                     case 2: //Create an account
                         System.out.print("\nInitial Deposit: $");
                         double deposit = input.getDouble();
+                        if (deposit <= 0 || deposit > 10000) continue;
 
                         System.out.print("Account Type (Enter 1 for Checking, 2 for Savings): ");
                         int accountType = input.getInt();
+                        if (accountType < 1 || accountType > 2) continue;
 
-                        System.out.print("Social Security Number (must match your profile's SSN): ");
-                        int ssn = input.getInt();
+                        System.out.print("Re-enter your SSN: ");
+                        ssn = input.getInt();
+                        if (!profile.verifySSN(ssn)) continue;
 
-                        System.out.print("Pin (must match your profile's pin): ");
+                        System.out.print("Pin: ");
                         Pin pin = new Pin(input.getInt());
+                        if (pin.verifyPin(0)) continue;
 
                         AccountNumber accountNumber = null;
 
                         switch (accountType) {
                             case 1:
                                 accountNumber = new AccountNumber(1, ssn);
-                                account = accountManager.createChecking(deposit, pin, accountNumber, new DebitCard());
+                                account = new Checking(deposit, pin, accountNumber, new DebitCard());
                                 break;
                             case 2:
                                 accountNumber = new AccountNumber(2, ssn);
-                                account = accountManager.createSavings(deposit, pin, accountNumber, new SecurityBox());
+                                account = new Savings(deposit, pin, accountNumber, new SecurityBox());
                                 break;
                             default:
                                 System.out.println("Invalid Account Type. Please try again.");
@@ -160,36 +133,31 @@ public class Application {
 
                         System.out.println("Account created!");
                         break;
-                    case 3: //Delete an account
-                        System.out.print("Account Number: ");
-
-                        account = accountListManager.findAccount(input.getLong());
-
-                        if (account == null) {
-                            System.out.println("Invalid Account Number.");
-                            continue;
-                        }
-
-                        accountFileManager.remove(account);
-                        accountListManager.removeAccount(account);
-                        accountManager.delete(account);
-
-                        System.out.println("\nAccount deleted!\nPlease restart the application.");
-                        break;
-                    case 4: //Manage an account
+                    case 3: //Manage an account
                         if (profile.hasAccounts()) {
                             System.out.println("\nWhich account are you working on?");
                             profile.showAccounts();
 
-                            System.out.print("\nAccount Number: ");
+                            System.out.println("Account Number: ");
                             String accountNumberStr = input.getString().trim();
 
                             account = accountListManager.findAccount(Long.parseLong(accountNumberStr));
+                            if (account == null) continue;
 
-                            if (account == null) {
-                                System.out.println("Invalid Account Number. Try again.");
-                                continue;
-                            }
+                            System.out.println("\nYou will have 3 attempts to enter your pin.");
+
+                            pinAttemptLoop:
+                            do {
+                                System.out.print("Pin: ");
+
+                                if (account.verifyPin(input.getInt())) break pinAttemptLoop;
+                                else pinAttempts++;
+
+                                if (pinAttempts == 3) {
+                                    System.out.println("\nYou ran out of attempts. Please try again later. Goodbye!");
+                                    break applicationLoop;
+                                }
+                            } while (pinAttempts <= 2);
                         } else {
                             System.out.println("This profile has no accounts.");
                             continue;
@@ -212,7 +180,8 @@ public class Application {
                     System.out.println("1. Deposit Money");
                     System.out.println("2. Withdraw Money");
                     System.out.println("3. Transfer Money");
-                    System.out.println("4. Show Account Information");
+                    System.out.println("4. New Pin");
+                    System.out.println("5. Show Account Information");
                     printMenu = false;
                 }
 
@@ -247,7 +216,24 @@ public class Application {
                         accountFileManager.add(account);
                         accountFileManager.add(tempTargetAccount);
                         break;
-                    case 4: //Show Account Information
+                    case 4://Enter a New Pin
+                        System.out.print("\nNew Pin: ");
+                        int updatedPin = input.getInt();
+
+                        if (account.isValidPinWidth(updatedPin)) {
+                            profileFileManager.removeProfile(profile);
+                            account.updatePin(updatedPin);
+                            profileFileManager.addProfile(profile);
+                        }
+                        break;
+                    case 5: //Delete this account
+                        accountFileManager.remove(account);
+                        accountListManager.removeAccount(account);
+                        account = null;
+
+                        System.out.println("\nAccount deleted!\nPlease restart the application.");
+                        break;
+                    case 6: //Show Account Information
                         account.showInfo();
                         break;
                     default: //Invalid Option

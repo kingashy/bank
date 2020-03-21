@@ -1,36 +1,31 @@
 package profile;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class ProfileListManager {
-    private LinkedList<Profile> profileList;
+    private HashMap<Integer, Profile> profileList;
 
-    public ProfileListManager(LinkedList<Profile> profileList) {
+    public ProfileListManager(HashMap<Integer, Profile> profileList) {
         this.profileList = profileList;
     }
 
-    public void addProfile(Profile profile) {
-        profileList.add(profile);
+    public void addProfile(int hash, Profile profile) {
+        profileList.put(hash, profile);
     }
 
-    public void removeProfile(Profile profile) {
-        profileList.remove(profile);
+    public void removeProfile(int hash) {
+        profileList.remove(hash);
     }
 
-    //find an account in the linked list based off a pin
-    public Profile findProfile(String name) {
-        Profile tempProfile;
+    //find an account in the linked list based off a name and ssn
+    public Profile findProfile(int hash, String name) {
+        Profile tempProfile = profileList.get(hash);
 
-        for (Iterator<Profile> i = profileList.iterator(); i.hasNext(); ) {
-            tempProfile = i.next();
+        if (tempProfile != null && tempProfile.verifyName(name)) return tempProfile;
 
-            if (tempProfile.verifyName(name)) {
-                return tempProfile;
-            }
-        }
-
-        //System.out.println("Bank Profile Not Found");
+        System.out.println("Bank Profile Not Found");
         return null;
     }
+
 }

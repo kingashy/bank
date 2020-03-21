@@ -1,25 +1,68 @@
 package account;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import file.FileManager;
 
-public class AccountFileManager {
-    private static String delimeter = ",";
+public class AccountFileManager extends FileManager {
+    private AccountListManager accountListManager;
 
-    private FileManager fileManager;
-    private String fileName;
+    public AccountFileManager(AccountListManager accountListManager, String fileName) {
+        super(fileName);
+        this.accountListManager = accountListManager;
 
-    public AccountFileManager(FileManager fileManager, String fileName) {
-        this.fileManager = fileManager;
-        this.fileName = fileName;
+        setup();
     }
 
     public String getFileName() {
         return fileName;
+    }
+
+    private void setup() {
+        try {
+            String tempParse[];
+            Account tempAccount;
+
+            BufferedReader buffR = new BufferedReader(new FileReader(getFileName()));
+
+            do {
+                tempParse = parseLine(buffR);
+                if (tempParse == null) break;
+                tempAccount = addAccountFromFile(tempParse);
+                //tempAccount.showInfo();
+                accountListManager.addAccount(tempAccount);
+            } while (tempParse != null);
+
+            buffR.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Account addAccountFromFile(String[] splitLine) {
+        Account tempAccount;
+        AccountNumber accountNumber = new AccountNumber(Long.parseLong(splitLine[2]));
+
+        Pin pin = new Pin(Integer.parseInt(splitLine[1]));
+        DebitCard debitCard;
+        SecurityBox securityBox;
+
+        //create a Savings or Checking account based on the type of Account
+        switch (splitLine[4]) {
+            case "Savings":
+                securityBox = new SecurityBox(Integer.parseInt(splitLine[3]));
+                tempAccount = new Savings(Double.parseDouble(splitLine[0]), pin, accountNumber, securityBox);
+                break;
+            case "Checking":
+                debitCard = new DebitCard(Long.parseLong(splitLine[3]));
+                tempAccount = new Checking(Double.parseDouble(splitLine[0]), pin, accountNumber, debitCard);
+                break;
+            default:
+                System.out.println("Invalid Account Type");
+                return null;
+        }
+
+        return tempAccount;
     }
 
     //add an account to the accounts.txt file
@@ -39,10 +82,6 @@ public class AccountFileManager {
 
     //remove an account to the accounts.txt file
     public void remove(Account account) {
-        fileManager.removeLineFromFile(fileName, account.toString());
-    }
-
-    public String[] parseLine(BufferedReader buffR) {
-        return fileManager.parseLine(buffR);
+        removeLineFromFile(account.toString());
     }
 }

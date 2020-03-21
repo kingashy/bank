@@ -1,6 +1,6 @@
 package account;
 
-public abstract class Account implements AccountTransactions {
+public abstract class Account implements Transactions {
     protected String accountType = "";
     protected AccountNumber accountNumber;
     protected Pin pin;
@@ -17,8 +17,12 @@ public abstract class Account implements AccountTransactions {
         return accountNumber.getAccountNum();
     }
 
-    public boolean isValidPin(int pinAttempt) {
-        return pin.isValidPin(pinAttempt);
+    public boolean verifyPin(int pinAttempt) {
+        return pin.verifyPin(pinAttempt);
+    }
+
+    public boolean isValidPinWidth(int pinAttempt) {
+        return pin.isValidPinWidth(pinAttempt);
     }
 
     public void updatePin(int newPin) {

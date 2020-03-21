@@ -8,11 +8,24 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileManager {
+public abstract class FileManager {
+    protected String fileName;
     private static String delimeter = ",";
 
+    public FileManager(String fileName){
+        this.fileName = fileName;
+    }
+
+    protected void setFileName(String fileName){
+        this.fileName = fileName;
+    }
+
+    protected String getFileName(){
+        return fileName;
+    }
+
     //remove an account to the accounts.txt file
-    public void removeLineFromFile(String fileName, String lineToRemove) {
+    public void removeLineFromFile(String lineToRemove) {
         try {
             File file = new File(fileName);
 
@@ -85,7 +98,7 @@ public class FileManager {
         }
     }
 
-    public String[][] parseFile(String fileName) {
+    public String[][] parseFile() {
         String line;
         String splitLine[] = null;
         String splitFile[][] = null;

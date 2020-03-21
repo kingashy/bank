@@ -3,37 +3,32 @@ package profile;
 import account.Account;
 import account.AccountFileManager;
 import account.AccountListManager;
-import account.Pin;
-import person.Person;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Profile {
-    private Person person;
+    private String name;
+    private int ssn;
     private LinkedList<Long> accountNumberList;
-    private Pin pin;
 
-    public Profile(Person person, LinkedList<Long> accountNumberList, Pin pin) {
-        this.person = person;
+    public Profile(String name, int ssn, LinkedList<Long> accountNumberList) {
+        this.name = name;
+        this.ssn = ssn;
         this.accountNumberList = accountNumberList;
-        this.pin = pin;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public boolean verifyName(String nameAttempt) {
-        return (nameAttempt.equals(person.getName()));
+        return (nameAttempt.equals(name));
     }
 
-    public boolean isValidPinWidth(int pinAttempt) {
-        return pin.isValidPinWidth(pinAttempt);
-    }
-
-    public boolean isValidPin(int pinAttempt) {
-        return pin.isValidPin(pinAttempt);
-    }
-
-    public void updatePin(int newPin) {
-        pin.updatePin(newPin);
+    public boolean verifySSN(int ssn) {
+        return this.ssn == ssn;
     }
 
     public boolean hasAccounts() {
@@ -43,18 +38,6 @@ public class Profile {
 
     public void addAccountNumber(long accountNumber) {
         accountNumberList.add(accountNumber);
-    }
-
-    public void updateAccountPins(int newPin, AccountListManager accountListManager, AccountFileManager accountFileManager) {
-        for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext(); ) {
-            Long tempAccountNumber = i.next();
-            Account account = accountListManager.findAccount(tempAccountNumber);
-            if (account != null) {
-                accountFileManager.remove(account);
-                account.updatePin(newPin);
-                accountFileManager.add(account);
-            }
-        }
     }
 
     public void showAccounts() {
@@ -74,26 +57,39 @@ public class Profile {
         Long tempAccountNumber;
         StringBuilder sb = new StringBuilder();
 
-        sb.append(person.toString());
+        sb.append(name).append(",").append(ssn);
         for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext(); ) {
             tempAccountNumber = i.next();
             sb.append(",").append(tempAccountNumber);
         }
-        sb.append(",").append(pin.toString());
         return sb.toString();
     }
 
     public void showInfo() {
         Long tempAccountNumber;
 
-        System.out.println();
-        person.showInfo();
+        //System.out.println();
+        System.out.println("Name: " + name);
         System.out.print("Account Numbers: ");
         for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext(); ) {
             tempAccountNumber = i.next();
             System.out.print(tempAccountNumber + ",");
         }
         System.out.println();
-        pin.showInfo();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Profile profile = (Profile) o;
+        return ssn == profile.ssn &&
+                name.equals(profile.name) &&
+                accountNumberList.equals(profile.accountNumberList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, ssn, accountNumberList);
     }
 }
