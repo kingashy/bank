@@ -4,17 +4,12 @@ public abstract class Account implements Transactions {
     protected String accountType = "";
     protected AccountNumber accountNumber;
     protected Pin pin;
-
     protected double balance;
 
     public Account(double balance, Pin pin, AccountNumber accountNumber) {
         this.balance = balance;
         this.pin = pin;
         this.accountNumber = accountNumber;
-    }
-
-    public long getAccountNum() {
-        return accountNumber.getAccountNum();
     }
 
     public boolean verifyPin(int pinAttempt) {
@@ -35,6 +30,10 @@ public abstract class Account implements Transactions {
             System.out.println("Failure: Account does not have sufficient funds.");
             return false;
         } else return true;
+    }
+
+    public boolean verifyAccountNumber(long number){
+        return accountNumber.verifyAccountNumber(number);
     }
 
     //deposit the specified amount of money  into the specified account

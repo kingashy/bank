@@ -1,8 +1,12 @@
 package account;
 
 import java.io.*;
+import java.util.Iterator;
+import java.util.Map;
 
 import file.FileManager;
+import profile.Profile;
+import profile.ProfileListManager;
 
 public class AccountFileManager extends FileManager {
     private AccountListManager accountListManager;
@@ -21,16 +25,12 @@ public class AccountFileManager extends FileManager {
     private void setup() {
         try {
             String tempParse[];
-            Account tempAccount;
-
             BufferedReader buffR = new BufferedReader(new FileReader(getFileName()));
 
             do {
                 tempParse = parseLine(buffR);
                 if (tempParse == null) break;
-                tempAccount = addAccountFromFile(tempParse);
-                //tempAccount.showInfo();
-                accountListManager.addAccount(tempAccount);
+                addAccountFromFile(tempParse);
             } while (tempParse != null);
 
             buffR.close();
@@ -39,8 +39,8 @@ public class AccountFileManager extends FileManager {
         }
     }
 
-    public Account addAccountFromFile(String[] splitLine) {
-        Account tempAccount;
+    public void addAccountFromFile(String[] splitLine) {
+        Account account;
         AccountNumber accountNumber = new AccountNumber(Long.parseLong(splitLine[2]));
 
         Pin pin = new Pin(Integer.parseInt(splitLine[1]));
@@ -51,18 +51,42 @@ public class AccountFileManager extends FileManager {
         switch (splitLine[4]) {
             case "Savings":
                 securityBox = new SecurityBox(Integer.parseInt(splitLine[3]));
-                tempAccount = new Savings(Double.parseDouble(splitLine[0]), pin, accountNumber, securityBox);
+                account = new Savings(Double.parseDouble(splitLine[0]), pin, accountNumber, securityBox);
                 break;
             case "Checking":
                 debitCard = new DebitCard(Long.parseLong(splitLine[3]));
-                tempAccount = new Checking(Double.parseDouble(splitLine[0]), pin, accountNumber, debitCard);
+                account = new Checking(Double.parseDouble(splitLine[0]), pin, accountNumber, debitCard);
                 break;
             default:
                 System.out.println("Invalid Account Type");
-                return null;
+                return;
         }
 
-        return tempAccount;
+        accountListManager.add(Long.parseLong(splitLine[2]), account);
+    }
+
+    public void removeAccounts(Profile profile) {
+
+        try {
+            String tempParse[];
+            BufferedReader buffR = new BufferedReader(new FileReader(getFileName()));
+
+            do {
+                tempParse = parseLine(buffR);
+                if (tempParse == null) break;
+                Long accountNumber = Long.parseLong(tempParse[2]);
+
+                if (profile.validAccountNumber(accountNumber)){
+                    Account account = accountListManager.find(accountNumber);
+                    if (account == null) continue;
+                    removeLineFromFile(account.toString());
+                }
+            } while (tempParse != null);
+
+            buffR.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //add an account to the accounts.txt file

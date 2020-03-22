@@ -19,10 +19,10 @@ public class Application {
         HashMap<Long, Account> accountList = new HashMap<>();
 
         Input input = new Input(new Scanner(System.in));
-        AccountListManager accountListManager = new AccountListManager(accountList);
-        AccountFileManager accountFileManager = new AccountFileManager(accountListManager, accountsFileName);
         ProfileListManager profileListManager = new ProfileListManager(profileList);
         ProfileFileManager profileFileManager = new ProfileFileManager(profileListManager, profilesFileName);
+        AccountListManager accountListManager = new AccountListManager(accountList);
+        AccountFileManager accountFileManager = new AccountFileManager(accountListManager, accountsFileName);
 
         Account account = null;
         String generalInput = "";
@@ -34,7 +34,8 @@ public class Application {
         String name = input.getString().trim();
         System.out.print("Enter your Social Security Number (SSN): ");
         int ssn = input.getInt();
-        Profile profile = profileListManager.findProfile(ssn, name);
+        Profile profile = profileListManager.find(ssn, name);
+        String accountNumberStr = "";
 
         applicationLoop:
         do {
@@ -53,7 +54,7 @@ public class Application {
                         break applicationLoop;
                     case 1: //Create Bank Profile
                         profile = new Profile(name, ssn, new LinkedList<>());
-                        profileListManager.addProfile(ssn, profile);
+                        profileListManager.add(ssn, profile);
                         profileFileManager.addProfile(profile);
 
                         System.out.println("\nProfile created! Your name and ssn were used.");
@@ -86,9 +87,11 @@ public class Application {
                         System.out.println("\nGoodbye!");
                         break applicationLoop;
                     case 1: //Remove a profile
+                        accountFileManager.removeAccounts(profile);
+                        accountListManager.removeAccounts(profile);
+
                         profileFileManager.removeProfile(profile);
-                        profileListManager.removeProfile(ssn);
-                        System.out.println(profile.toString());
+                        profileListManager.remove(ssn);
 
                         System.out.println("Profile Removed. Goodbye!");
                         break applicationLoop;
@@ -125,7 +128,7 @@ public class Application {
                                 continue;
                         }
 
-                        accountListManager.addAccount(account);
+                        accountListManager.add(accountNumber.getAccountNum(), account);
                         accountFileManager.add(account);
                         profileFileManager.removeProfile(profile);
                         profile.addAccountNumber(accountNumber.getAccountNum());
@@ -139,9 +142,9 @@ public class Application {
                             profile.showAccounts();
 
                             System.out.println("Account Number: ");
-                            String accountNumberStr = input.getString().trim();
+                            accountNumberStr = input.getString().trim();
 
-                            account = accountListManager.findAccount(Long.parseLong(accountNumberStr));
+                            account = accountListManager.find(Long.parseLong(accountNumberStr));
                             if (account == null) continue;
 
                             System.out.println("\nYou will have 3 attempts to enter your pin.");
@@ -207,7 +210,7 @@ public class Application {
                         break;
                     case 3: //Transfer Money
                         System.out.print("\nAccount Number of the Target Account: ");
-                        Account tempTargetAccount = accountListManager.findAccount(input.getLong());
+                        Account tempTargetAccount = accountListManager.find(input.getLong());
                         if (tempTargetAccount == null) break;
                         System.out.print("Transfer Amount: $");
                         accountFileManager.remove(account);
@@ -228,7 +231,7 @@ public class Application {
                         break;
                     case 5: //Delete this account
                         accountFileManager.remove(account);
-                        accountListManager.removeAccount(account);
+                        accountListManager.remove(Long.parseLong(accountNumberStr));
                         account = null;
 
                         System.out.println("\nAccount deleted!\nPlease restart the application.");

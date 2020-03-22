@@ -49,7 +49,6 @@ public abstract class FileManager {
                     buffW.write(line);
                     buffW.newLine();
                     buffW.flush();
-                    ;
                 }
             }
             fileR.close();

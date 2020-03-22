@@ -18,13 +18,11 @@ public class ProfileFileManager extends FileManager {
     private void setup() {
         try {
             String tempParse[];
-
             BufferedReader buffR = new BufferedReader(new FileReader(getFileName()));
 
             do {
                 tempParse = parseLine(buffR);
                 if (tempParse == null) break;
-
                 addProfileFromFile(tempParse);
             } while (tempParse != null);
 
@@ -38,13 +36,13 @@ public class ProfileFileManager extends FileManager {
         Profile profile;
         LinkedList<Long> accountNumberList = new LinkedList<Long>();
 
-        for (int i = 2; i <= (splitLine.length - 1) - 1; i++) {
+        for (int i = 2; i <= splitLine.length - 1; i++) {
             accountNumberList.add(Long.parseLong(splitLine[i].trim()));
         }
+        //System.out.println(accountNumberList);
 
         profile = new Profile(splitLine[0].trim(), Integer.parseInt(splitLine[1].trim()), accountNumberList);
-
-        profileListManager.addProfile(Integer.parseInt(splitLine[1].trim()), profile);
+        profileListManager.add(Integer.parseInt(splitLine[1].trim()), profile);
     }
 
     public void addProfile(Profile profile) {

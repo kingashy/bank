@@ -1,9 +1,5 @@
 package profile;
 
-import account.Account;
-import account.AccountFileManager;
-import account.AccountListManager;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -19,12 +15,8 @@ public class Profile {
         this.accountNumberList = accountNumberList;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public boolean verifyName(String nameAttempt) {
-        return (nameAttempt.equals(name));
+        return nameAttempt.equals(name);
     }
 
     public boolean verifySSN(int ssn) {
@@ -40,40 +32,52 @@ public class Profile {
         accountNumberList.add(accountNumber);
     }
 
+    public void removeAccountNumber(long accountNumber){
+        accountNumberList.remove(accountNumber);
+    }
+
+    public boolean validAccountNumber(long number){
+        for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext(); ) {
+            Long accountNumber = i.next();
+            if (accountNumber == number) return true;
+        }
+        return false;
+    }
+
     public void showAccounts() {
-        Long tempAccountNumber;
+        Long accountNumber;
         int count = 1;
 
         System.out.println("\nAccounts: ");
         for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext(); ) {
-            tempAccountNumber = i.next();
-            System.out.println(count + ": " + tempAccountNumber);
+            accountNumber = i.next();
+            System.out.println(count + ": " + accountNumber);
             count++;
         }
     }
 
     @Override
     public String toString() {
-        Long tempAccountNumber;
+        Long accountNumber;
         StringBuilder sb = new StringBuilder();
 
         sb.append(name).append(",").append(ssn);
         for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext(); ) {
-            tempAccountNumber = i.next();
-            sb.append(",").append(tempAccountNumber);
+            accountNumber = i.next();
+            sb.append(",").append(accountNumber);
         }
         return sb.toString();
     }
 
     public void showInfo() {
-        Long tempAccountNumber;
+        Long accountNumber;
 
         //System.out.println();
         System.out.println("Name: " + name);
         System.out.print("Account Numbers: ");
         for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext(); ) {
-            tempAccountNumber = i.next();
-            System.out.print(tempAccountNumber + ",");
+            accountNumber = i.next();
+            System.out.print(accountNumber + ",");
         }
         System.out.println();
     }

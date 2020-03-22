@@ -2,6 +2,8 @@ package account;
 
 import random.Generate;
 
+import java.util.Objects;
+
 public class AccountNumber {
     private long accountNum;
 
@@ -9,8 +11,8 @@ public class AccountNumber {
         this.accountNum = accountNum;
     }
 
-    public AccountNumber(int accountType, int accountOwnerSSN) {
-        accountNum = generateAccountNum(accountType, accountOwnerSSN);
+    public AccountNumber(int accountType, int ssn) {
+        accountNum = generateAccountNum(accountType, ssn);
     }
 
     //generate the 11-digit account number
@@ -25,6 +27,10 @@ public class AccountNumber {
         return tempAccountNum;
     }
 
+    public boolean verifyAccountNumber(Long accountNum){
+        return this.accountNum == accountNum;
+    }
+
     public long getAccountNum() {
         return accountNum;
     }
@@ -37,5 +43,18 @@ public class AccountNumber {
 
     public void showInfo() {
         System.out.println("Account Number: " + accountNum);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountNumber that = (AccountNumber) o;
+        return accountNum == that.accountNum;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountNum);
     }
 }
