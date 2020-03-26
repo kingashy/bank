@@ -10,10 +10,12 @@ public class ProfileListManager {
         this.profileList = profileList;
     }
 
+    //add a profile to the local list
     public void add(int key, Profile profile) {
         profileList.put(key, profile);
     }
 
+    //remove a profile from the local list
     public void remove(int key) {
         profileList.remove(key);
     }

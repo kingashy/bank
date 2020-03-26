@@ -71,6 +71,7 @@ public abstract class FileManager {
         }
     }
 
+    //parse a line within a file
     public String[] parseLine(BufferedReader buffR) {
         String line;
         String splitLine[] = null;
@@ -97,6 +98,7 @@ public abstract class FileManager {
         }
     }
 
+    //parse an entire file into a 2D String array
     public String[][] parseFile() {
         String line;
         String splitLine[] = null;

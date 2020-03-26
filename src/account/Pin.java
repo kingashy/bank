@@ -22,7 +22,7 @@ public class Pin {
         this.pin = newPin;
     }
 
-    //check if the pin attempted is valid
+    //check if the pin attempt is valid
     public boolean verifyPin(int pinAttempt) {
         if (pinAttempt == pin) {
             return true;
@@ -32,13 +32,14 @@ public class Pin {
         }
     }
 
+    public void showInfo() {
+        System.out.println("Pin: " + pin);
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(pin);
         return sb.toString();
-    }
-
-    public void showInfo() {
-        System.out.println("Pin: " + pin);
     }
 }

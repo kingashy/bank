@@ -1,12 +1,9 @@
 package account;
 
 import java.io.*;
-import java.util.Iterator;
-import java.util.Map;
 
 import file.FileManager;
 import profile.Profile;
-import profile.ProfileListManager;
 
 public class AccountFileManager extends FileManager {
     private AccountListManager accountListManager;
@@ -18,14 +15,14 @@ public class AccountFileManager extends FileManager {
         setup();
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
+    //load all accounts from the local file
     private void setup() {
         try {
             String tempParse[];
-            BufferedReader buffR = new BufferedReader(new FileReader(getFileName()));
+            File accountFile = new File(fileName);
+            if (!accountFile.exists()) accountFile.createNewFile();
+            BufferedReader buffR = new BufferedReader(new FileReader(accountFile));
+            //BufferedReader buffR = new BufferedReader(new FileReader(getFileName()));
 
             do {
                 tempParse = parseLine(buffR);
@@ -39,6 +36,7 @@ public class AccountFileManager extends FileManager {
         }
     }
 
+    //create a singular account from a line parse
     public void addAccountFromFile(String[] splitLine) {
         Account account;
         AccountNumber accountNumber = new AccountNumber(Long.parseLong(splitLine[2]));
@@ -65,18 +63,18 @@ public class AccountFileManager extends FileManager {
         accountListManager.add(Long.parseLong(splitLine[2]), account);
     }
 
+    //remove all accounts from the file associated with the specified profile
     public void removeAccounts(Profile profile) {
-
         try {
             String tempParse[];
-            BufferedReader buffR = new BufferedReader(new FileReader(getFileName()));
+            BufferedReader buffR = new BufferedReader(new FileReader(fileName));
 
             do {
                 tempParse = parseLine(buffR);
                 if (tempParse == null) break;
                 Long accountNumber = Long.parseLong(tempParse[2]);
 
-                if (profile.validAccountNumber(accountNumber)){
+                if (profile.validAccount(accountNumber)){
                     Account account = accountListManager.find(accountNumber);
                     if (account == null) continue;
                     removeLineFromFile(account.toString());
@@ -89,7 +87,7 @@ public class AccountFileManager extends FileManager {
         }
     }
 
-    //add an account to the accounts.txt file
+    //add an account to the local file
     public void add(Account account) {
         try {
             //open the buffer in append mode
@@ -104,7 +102,7 @@ public class AccountFileManager extends FileManager {
         }
     }
 
-    //remove an account to the accounts.txt file
+    //remove an account to the local file
     public void remove(Account account) {
         removeLineFromFile(account.toString());
     }

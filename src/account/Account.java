@@ -12,14 +12,17 @@ public abstract class Account implements Transactions {
         this.accountNumber = accountNumber;
     }
 
+    //check if the pin attempt is valid
     public boolean verifyPin(int pinAttempt) {
         return pin.verifyPin(pinAttempt);
     }
 
+    //check if the pin entered is 4 digits
     public boolean isValidPinWidth(int pinAttempt) {
         return pin.isValidPinWidth(pinAttempt);
     }
 
+    //update the current pin
     public void updatePin(int newPin) {
         pin.updatePin(newPin);
     }
@@ -32,6 +35,7 @@ public abstract class Account implements Transactions {
         } else return true;
     }
 
+    //verify the current account number
     public boolean verifyAccountNumber(long number){
         return accountNumber.verifyAccountNumber(number);
     }
@@ -39,6 +43,7 @@ public abstract class Account implements Transactions {
     //deposit the specified amount of money  into the specified account
     public void deposit(double amount) {
         balance += amount;
+        showBalance();
     }
 
     //attempt to withdraw the specified amount of money from the source account
@@ -46,6 +51,7 @@ public abstract class Account implements Transactions {
         if (!isValidWithdrawal(amount)) return;
 
         balance -= amount;
+        showBalance();
     }
 
     //attempt to transfer the specified amount of money to the target account
@@ -54,16 +60,21 @@ public abstract class Account implements Transactions {
 
         withdraw(amount);
         targetAccount.deposit(amount);
+        showBalance();
     }
 
-    //show everything about the account
+    private void showBalance(){
+        System.out.println("Current Balance: $" + balance);
+    }
+
     public void showInfo() {
         System.out.println();
-        System.out.println("Balance: $" + balance);
+        showBalance();
         accountNumber.showInfo();
         pin.showInfo();
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(balance).append(",").append(pin.toString()).append(",").append(accountNumber.toString());

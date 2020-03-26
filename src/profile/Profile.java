@@ -23,20 +23,24 @@ public class Profile {
         return this.ssn == ssn;
     }
 
+    //check if the profile has accounts
     public boolean hasAccounts() {
         if (accountNumberList.isEmpty()) return false;
         else return true;
     }
 
-    public void addAccountNumber(long accountNumber) {
+    //add an account
+    public void addAccount(long accountNumber) {
         accountNumberList.add(accountNumber);
     }
 
-    public void removeAccountNumber(long accountNumber){
+    //remove an account
+    public void removeAccount(long accountNumber){
         accountNumberList.remove(accountNumber);
     }
 
-    public boolean validAccountNumber(long number){
+    //check if the account number attempt belongs to the profile
+    public boolean validAccount(long number){
         for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext(); ) {
             Long accountNumber = i.next();
             if (accountNumber == number) return true;
@@ -56,19 +60,6 @@ public class Profile {
         }
     }
 
-    @Override
-    public String toString() {
-        Long accountNumber;
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(name).append(",").append(ssn);
-        for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext(); ) {
-            accountNumber = i.next();
-            sb.append(",").append(accountNumber);
-        }
-        return sb.toString();
-    }
-
     public void showInfo() {
         Long accountNumber;
 
@@ -80,6 +71,19 @@ public class Profile {
             System.out.print(accountNumber + ",");
         }
         System.out.println();
+    }
+
+    @Override
+    public String toString() {
+        Long accountNumber;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(name).append(",").append(ssn);
+        for (Iterator<Long> i = accountNumberList.iterator(); i.hasNext(); ) {
+            accountNumber = i.next();
+            sb.append(",").append(accountNumber);
+        }
+        return sb.toString();
     }
 
     @Override

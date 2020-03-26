@@ -15,10 +15,14 @@ public class ProfileFileManager extends FileManager {
         setup();
     }
 
+    //load profiles into the system from a local file
     private void setup() {
         try {
             String tempParse[];
-            BufferedReader buffR = new BufferedReader(new FileReader(getFileName()));
+            File profileFile = new File(fileName);
+            if (!profileFile.exists()) profileFile.createNewFile();
+            BufferedReader buffR = new BufferedReader(new FileReader(profileFile));
+            //BufferedReader buffR = new BufferedReader(new FileReader(getFileName()));
 
             do {
                 tempParse = parseLine(buffR);
@@ -32,6 +36,7 @@ public class ProfileFileManager extends FileManager {
         }
     }
 
+    //add a profile from a line parse
     private void addProfileFromFile(String[] splitLine) {
         Profile profile;
         LinkedList<Long> accountNumberList = new LinkedList<Long>();
@@ -39,13 +44,13 @@ public class ProfileFileManager extends FileManager {
         for (int i = 2; i <= splitLine.length - 1; i++) {
             accountNumberList.add(Long.parseLong(splitLine[i].trim()));
         }
-        //System.out.println(accountNumberList);
 
         profile = new Profile(splitLine[0].trim(), Integer.parseInt(splitLine[1].trim()), accountNumberList);
         profileListManager.add(Integer.parseInt(splitLine[1].trim()), profile);
     }
 
-    public void addProfile(Profile profile) {
+    //add a profile to the file
+    public void add(Profile profile) {
         try {
             //open the buffer in append mode
             BufferedWriter buffW = new BufferedWriter(new FileWriter(fileName, true));
@@ -59,7 +64,8 @@ public class ProfileFileManager extends FileManager {
         }
     }
 
-    public void removeProfile(Profile profile) {
+    //remove a profile from the file
+    public void remove(Profile profile) {
         removeLineFromFile(profile.toString());
     }
 }

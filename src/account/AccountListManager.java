@@ -34,6 +34,7 @@ public class AccountListManager {
         return null;
     }
 
+    //remove all accounts from the list associated with the specified profile
     public void removeAccounts(Profile profile) {
         Iterator iterator = accountList.entrySet().iterator();
         Long key;
@@ -42,7 +43,7 @@ public class AccountListManager {
             Map.Entry mapElement = (Map.Entry)iterator.next();
             key = (Long)mapElement.getKey();
 
-            if (profile.validAccountNumber(key)) {
+            if (profile.validAccount(key)) {
                 iterator.remove(); //removes the HashMap set
             }
         }

@@ -27,22 +27,24 @@ public class AccountNumber {
         return tempAccountNum;
     }
 
+    //verify the account number attempt
     public boolean verifyAccountNumber(Long accountNum){
         return this.accountNum == accountNum;
     }
 
-    public long getAccountNum() {
+    public long getAccountNumber() {
         return accountNum;
-    }
-
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(accountNum);
-        return sb.toString();
     }
 
     public void showInfo() {
         System.out.println("Account Number: " + accountNum);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(accountNum);
+        return sb.toString();
     }
 
     @Override

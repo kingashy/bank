@@ -55,10 +55,9 @@ public class Application {
                     case 1: //Create Bank Profile
                         profile = new Profile(name, ssn, new LinkedList<>());
                         profileListManager.add(ssn, profile);
-                        profileFileManager.addProfile(profile);
+                        profileFileManager.add(profile);
 
                         System.out.println("\nProfile created! Your name and ssn were used.");
-                        System.out.println("This application will now restart.");
                         continue applicationLoop;
                     default: //Invalid Option
                         System.out.println("Invalid Option. Try again.");
@@ -90,7 +89,7 @@ public class Application {
                         accountFileManager.removeAccounts(profile);
                         accountListManager.removeAccounts(profile);
 
-                        profileFileManager.removeProfile(profile);
+                        profileFileManager.remove(profile);
                         profileListManager.remove(ssn);
 
                         System.out.println("Profile Removed. Goodbye!");
@@ -110,7 +109,7 @@ public class Application {
 
                         System.out.print("Pin: ");
                         Pin pin = new Pin(input.getInt());
-                        if (pin.verifyPin(0)) continue;
+                        //if (pin.verifyPin(0)) continue;
 
                         AccountNumber accountNumber = null;
 
@@ -128,11 +127,11 @@ public class Application {
                                 continue;
                         }
 
-                        accountListManager.add(accountNumber.getAccountNum(), account);
+                        accountListManager.add(accountNumber.getAccountNumber(), account);
                         accountFileManager.add(account);
-                        profileFileManager.removeProfile(profile);
-                        profile.addAccountNumber(accountNumber.getAccountNum());
-                        profileFileManager.addProfile(profile);
+                        profileFileManager.remove(profile);
+                        profile.addAccount(accountNumber.getAccountNumber());
+                        profileFileManager.add(profile);
 
                         System.out.println("Account created!");
                         break;
@@ -141,7 +140,7 @@ public class Application {
                             System.out.println("\nWhich account are you working on?");
                             profile.showAccounts();
 
-                            System.out.println("Account Number: ");
+                            System.out.print("Account Number: ");
                             accountNumberStr = input.getString().trim();
 
                             account = accountListManager.find(Long.parseLong(accountNumberStr));
@@ -184,7 +183,8 @@ public class Application {
                     System.out.println("2. Withdraw Money");
                     System.out.println("3. Transfer Money");
                     System.out.println("4. New Pin");
-                    System.out.println("5. Show Account Information");
+                    System.out.println("5. Delete this account");
+                    System.out.println("6. Account information");
                     printMenu = false;
                 }
 
@@ -224,14 +224,15 @@ public class Application {
                         int updatedPin = input.getInt();
 
                         if (account.isValidPinWidth(updatedPin)) {
-                            profileFileManager.removeProfile(profile);
+                            profileFileManager.remove(profile);
                             account.updatePin(updatedPin);
-                            profileFileManager.addProfile(profile);
+                            profileFileManager.add(profile);
                         }
                         break;
                     case 5: //Delete this account
                         accountFileManager.remove(account);
                         accountListManager.remove(Long.parseLong(accountNumberStr));
+                        profile.removeAccount(Long.parseLong(accountNumberStr));
                         account = null;
 
                         System.out.println("\nAccount deleted!\nPlease restart the application.");
